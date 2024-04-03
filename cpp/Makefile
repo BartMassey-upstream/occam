@@ -5,7 +5,7 @@
 
 SHELL = /bin/sh
 CC = gcc
-PY_INCLUDE = /usr/include/python2.7
+PY_INCLUDE = /usr/include/python3.12
 CFLAGS = -w -Wall -Wextra -O3 -fPIC -std=c++11 -I ../include -I $(PY_INCLUDE) -frounding-math -fsignaling-nans -fsigned-zeros -fno-finite-math-only -msse2 -mfpmath=sse
 LFLAGS = -shared
 AR = ar
