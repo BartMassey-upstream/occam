@@ -81,9 +81,9 @@ DefinePyFunction(VBMManager, initFromCommandLine) {
     int i;
     for (i = 0; i < argc; i++) {
         PyObject *PString = PyList_GetItem(Pargv, i);
-        int size = PyString_Size(PString);
+        int size = PyBytes_Size(PString);
         argv[i] = new char[size + 1];
-        strcpy(argv[i], PyString_AsString(PString));
+        strcpy(argv[i], PyBytes_AsString(PString));
     }
     bool ret;
     ret = ObjRef(self, VBMManager)->initFromCommandLine(argc, argv);
@@ -124,7 +124,7 @@ DefinePyFunction(VBMManager, getDvName) {
     VBMManager* mgr = ObjRef(self, VBMManager);
     VariableList* varlist = mgr->getVariableList();
     const char* abbrev = varlist->getVariable(varlist->getDV())->abbrev;
-    PyObject* name = PyString_FromString(abbrev);
+    PyObject* name = PyBytes_FromString(abbrev);
     return name;
 }
 
@@ -139,8 +139,8 @@ DefinePyFunction(VBMManager, getVariableList) {
 
         const char* printName = varlist->getVariable(i)->name;
         const char* abbrevName = varlist->getVariable(i)->abbrev;
-        PyObject* name = PyString_FromString(printName);
-        PyObject* abbrev = PyString_FromString(abbrevName);
+        PyObject* name = PyBytes_FromString(printName);
+        PyObject* abbrev = PyBytes_FromString(abbrevName);
         PyObject* names = PyTuple_Pack(2,name,abbrev);
         PyList_SetItem(ret, i, names);
     }
@@ -751,9 +751,9 @@ DefinePyFunction(SBMManager, initFromCommandLine) {
     int i;
     for (i = 0; i < argc; i++) {
         PyObject *PString = PyList_GetItem(Pargv, i);
-        int size = PyString_Size(PString);
+        int size = PyBytes_Size(PString);
         argv[i] = new char[size + 1];
-        strcpy(argv[i], PyString_AsString(PString));
+        strcpy(argv[i], PyBytes_AsString(PString));
     }
     bool ret;
     ret = ObjRef(self, SBMManager)->initFromCommandLine(argc, argv);
@@ -1281,7 +1281,7 @@ DefinePyFunction(Relation, get) {
     //-- Other attributes
     if (strcmp(name, "name") == 0) {
         const char *printName = relation->getPrintName();
-        return PyString_FromString(printName);
+        return PyBytes_FromString(printName);
     }
 
     if (strcmp(name, "varcount") == 0) {
@@ -1406,7 +1406,7 @@ DefinePyFunction(Model, get) {
     //-- Other attributes
     if (strcmp(name, "name") == 0) {
         const char *printName = model->getPrintName();
-        return PyString_FromString(printName);
+        return PyBytes_FromString(printName);
     }
 
     if (strcmp(name, "relcount") == 0) {
@@ -1523,7 +1523,7 @@ PyObject * Model_getattr(PyObject *self, char *name) {
     //-- Other attributes
     if (strcmp(name, "name") == 0) {
         const char *printName = model->getPrintName();
-        return PyString_FromString(printName);
+        return PyBytes_FromString(printName);
     }
 
     if (strcmp(name, "relcount") == 0) {
@@ -1741,7 +1741,7 @@ DefinePyFunction(Report, dvName) {
     VBMManager* mgr = dynamic_cast<VBMManager*>(report->manager);
     VariableList* varlist = mgr->getVariableList();
     const char* abbrev = varlist->getVariable(varlist->getDV())->abbrev;
-    PyObject* name = PyString_FromString(abbrev);
+    PyObject* name = PyBytes_FromString(abbrev);
     return name;
 }
 
@@ -1768,8 +1768,8 @@ DefinePyFunction(Report, variableList) {
 
         const char* printName = varlist->getVariable(i)->name;
         const char* abbrevName = varlist->getVariable(i)->abbrev;
-        PyObject* name = PyString_FromString(printName);
-        PyObject* abbrev = PyString_FromString(abbrevName);
+        PyObject* name = PyBytes_FromString(printName);
+        PyObject* abbrev = PyBytes_FromString(abbrevName);
         PyObject* names = PyTuple_Pack(2,name,abbrev);
         PyList_SetItem(ret, i, names);
     }
