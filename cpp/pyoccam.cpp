@@ -699,7 +699,8 @@ static void VBMManager_dealloc(PVBMManager *self) {
 }
 
 PyObject * VBMManager_getattr(PyObject *self, char *name) {
-    PyObject *method = Py_FindMethod(VBMManager_methods, self, name);
+    // https://stackoverflow.com/a/53872234
+    PyObject *method = PyObject_GenericGetAttr((PyObject *) self, PyBytes_FromString(name));
     return method;
 }
 
